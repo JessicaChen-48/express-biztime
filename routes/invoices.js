@@ -25,18 +25,20 @@ router.get("/:id", async function (req, res, next) {
         [id]);
 
     const invoicesResults = results.rows[0];
+    let code = invoicesResults.comp_code
 
-    // const compResults = await db.query(
-    //     `SELECT
-    //         code, name, description
-    //         FROM companies
-    //         WHERE code = $1`,
-    //     [code]);
+    const compResults = await db.query(
+        `SELECT
+            code, name, description
+            FROM companies
+            WHERE code = $1`,
+        [code]);
 
-    // const companiesResulyts = compResults.rows[0];
+    const companiesResults = compResults.rows[0];
 
     console.log(results)
-    // return 
+    invoicesResults.company = companiesResults;
+    return res.json({ invoice: invoicesResults })
 })
 
 module.exports = router;

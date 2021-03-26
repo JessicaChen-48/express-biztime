@@ -6,7 +6,7 @@ const router = new express.Router();
 
 router.get("/", async function (req, res, next) {
   const results = await db.query(
-    `SELECT code, name description 
+    `SELECT code, name, description 
     FROM companies`
   );
   const companies = results.rows;
